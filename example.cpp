@@ -1,8 +1,12 @@
-#include<DoubleList/DoubleList.hpp>
+#include"GraphAlgo/FloydWAlgo.h"
+#include"DoubleList/DoubleList.hpp"
 #include<string>
 #include<iostream>
 #include<gtest/gtest.h>
-int ArrayLen=1000;
+#include"GraphProves.h"
+#include"Graph/DirectedGraph.hpp"
+
+int ArrayLen=100;
 int lowestPosition=0;
 void initializeAnIntegerList(DoubleList<int> &List,int len){
     for(int i=0;i<len;i++){
@@ -35,9 +39,18 @@ TEST(List,DoubleListDelete){
         IntegerList.erase(lowestPosition);
     }
 }
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(Graph,AddRelations){
+    DoubleList<DoubleList<int>>* List=GraphTools::getRelationMatriz(ArrayLen);
+    DGraph<int>* Graph= GraphTools::getGraph(List);
+    EXPECT_EQ(GraphTools::compare(List,Graph),true);
+
 }
+TEST(Graph,WarshallAlgo){
+    DoubleList<DoubleList<int>>* List=GraphTools::getRelationMatriz(ArrayLen);
+    DGraph<int>* Graph= GraphTools::getGraph(List);
+    EXPECT_EQ(GraphTools::assertEmptyWay(*Graph,minIndex,ArrayLen),true);
+
+
+}
+
 
